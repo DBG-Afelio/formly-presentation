@@ -1,0 +1,8 @@
+<div class="pl-m simple-text flex flex-middle">
+    <a class="c-primary03 f-body-bold f-m"
+        [ngClass]="{'text-info-body': !to.label}"
+        data-test="testInformation"
+        [innerHTML]="to['text'] | smartTranslate : to['translateArguments']" (click)="navigate(to['navigateParams'], to['queryParams'])">
+    </a>
+    <span class="icon icon-arrow-right ml-xxs f-xl c-primary03"></span>
+</div>

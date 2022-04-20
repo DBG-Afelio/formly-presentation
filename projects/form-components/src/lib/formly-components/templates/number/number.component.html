@@ -1,0 +1,38 @@
+<div
+    class="textfield -icon"
+    [ngClass]="{
+        '-error': (showError$ | async),
+        'flex flex-middle': formControl.disabled,
+        'w-33':!formControl.disabled && to.max && to.max < 999999999 && to.max >= 9999,
+        'w-25':!formControl.disabled && to.max && to.max < 9999,
+        'w-50': !formControl.disabled && !to.max}"
+>
+    <input
+        *ngIf="!formControl.disabled"
+        type="number"
+        class="textfield__field"
+        [placeholder]="!formControl.disabled && to.placeholder ? (to.placeholder | translate) : '−'"
+        [formControl]="control"
+        (keydown)="onKeyDown($event)"
+        (input)="onInput($event)"
+        (paste)="onPaste($event)"
+        #numberInput
+        [attr.min]="to.min"
+        [attr.max]="to.max"
+        (blur)="inputBlur$.next()"
+    />
+    <div *ngIf="formControl.disabled" class="-text-info">
+        <div *ngIf="formControl.value || formControl.value === 0">
+            {{formControl.value | number : '1.0-3'}}
+        </div>
+        <div *ngIf="formControl.value === null || formControl.value === undefined">
+            {{ 'GENERAL.EMPTY_FIELD' | translate }}
+        </div>
+    </div>
+    <label class="textfield__icon" *ngIf="to['showEuro']">
+        <span class="icon-euro"></span>
+    </label>
+    <label *ngIf="to['unite']" class="textfield__unite">
+        <span>{{to['unite'] | translate}}</span>
+    </label>
+</div>

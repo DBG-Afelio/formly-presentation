@@ -1,0 +1,70 @@
+<div class="modal" [ngClass]="classes" *ngIf="currentNavigationData$ | async as data">
+
+    <div class="modal__header">
+        <h3 class="modal__title">
+            {{ data.labels.title | translate }}
+        </h3>
+
+        <div class="modal__top">
+            <div *ngIf="titleBadge$ | async as titleBadge" class="modal__info">
+                <div class="tag">
+                    <span class="pr-xxs">{{ 'CALENDAR.FORM.BADGE.LABEL' | translate }} </span>  {{ titleBadge }}
+                </div>
+            </div>
+            <div class="modal__dropdown dropdown -right">
+                <button class="button -primary -icon-alone" [ngClass]="{'hidden': !data.actions || data.actions.length === 0}">
+                    <span class="icon icon-more"></span>
+                </button>
+                <div class="dropdown__list max-content" *ngIf="data.actions?.length > 0">
+                    <div *ngFor="let action of data.actions">
+                        <button class="button" [ngClass]="[action?.icon ? '-icon' : '', action?.className ? action.className : '']" type="button" (click)="actionClicked(action)">
+                            <span *ngIf="action?.icon" class="icon" [ngClass]="action.icon"></span>
+                            {{action.label | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="modal__back button -icon-alone" (click)="cancel()" *ngIf="navigationStack.length > 1">
+        <span class="icon icon-arrow-left"></span>
+    </button>
+    <button class="modal__close button -icon-alone" (click)="closeDialog()">
+        <span class="icon icon-close"></span>
+    </button>
+    <div class="modal__body">
+        <form [formGroup]="data.formConfig.formGroup">
+            <formly-form
+                [fields]="data.formConfig.formlyConfig"
+                [form]="data.formConfig.formGroup"
+                [model]="data.formConfig.model"
+                [className]="'formly -no-shadow -center -no-padding -if-disabled-readonly'"
+                [ngClass]="data.formClasses ? data.formClasses : []"
+                [options]="{formState: data.formConfig.formState ? data.formConfig.formState : {}}"
+            >
+            </formly-form>
+        </form>
+    </div>
+    <div class="modal__footer">
+        <div class="modal__buttons" *ngIf="!data.buttons; else customButtons">
+            <button type="button" class="button -primary" (click)="submit()">
+                {{ data.labels.submit | translate }}
+            </button>
+            <button type="button" class="button -ternary" (click)="cancel()">
+                {{ data.labels.cancel | translate }}
+            </button>
+        </div>
+    </div>
+    <ng-template #customButtons>
+        <div class="modal__buttons">
+            <ng-container *ngFor="let button of data.buttons">
+                <button type="button" [ngClass]="button?.className" (click)="buttonClicked(button)">
+                    {{ button.label | translate }}
+                </button>
+            </ng-container>
+        </div>
+    </ng-template>
+</div>
+
+
