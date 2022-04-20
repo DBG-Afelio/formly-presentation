@@ -9,9 +9,9 @@ import { FieldWrapper } from '@ngx-formly/core';
 export class SimpleFieldWrapperComponent extends FieldWrapper implements OnInit {
 
     @ViewChild('fieldComponent', { read: ViewContainerRef })
-    fieldComponent: ViewContainerRef;
+    override fieldComponent!: ViewContainerRef;
 
-    public forcedHeight?: number = null;
+    public forcedHeight: number | null = null;
 
     ngOnInit() {
         this.forcedHeight = !(this.to && this.to.label || '').trim() ? 0 : null;

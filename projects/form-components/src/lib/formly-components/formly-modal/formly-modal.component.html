@@ -15,10 +15,10 @@
                 <button class="button -primary -icon-alone" [ngClass]="{'hidden': !data.actions || data.actions.length === 0}">
                     <span class="icon icon-more"></span>
                 </button>
-                <div class="dropdown__list max-content" *ngIf="data.actions?.length > 0">
+                <div class="dropdown__list max-content" *ngIf="data.actions && data.actions.length > 0">
                     <div *ngFor="let action of data.actions">
                         <button class="button" [ngClass]="[action?.icon ? '-icon' : '', action?.className ? action.className : '']" type="button" (click)="actionClicked(action)">
-                            <span *ngIf="action?.icon" class="icon" [ngClass]="action.icon"></span>
+                            <span *ngIf="action?.icon" class="icon" [ngClass]="action && action.icon ? action.icon : ''"></span>
                             {{action.label | translate}}
                         </button>
                     </div>
@@ -47,12 +47,12 @@
         </form>
     </div>
     <div class="modal__footer">
-        <div class="modal__buttons" *ngIf="!data.buttons; else customButtons">
+        <div class="modal__buttons" *ngIf="!data.buttons && data.labels else customButtons">
             <button type="button" class="button -primary" (click)="submit()">
-                {{ data.labels.submit | translate }}
+                {{ data.labels.submit ?? '' | translate }}
             </button>
             <button type="button" class="button -ternary" (click)="cancel()">
-                {{ data.labels.cancel | translate }}
+                {{ data.labels.cancel ?? '' | translate }}
             </button>
         </div>
     </div>

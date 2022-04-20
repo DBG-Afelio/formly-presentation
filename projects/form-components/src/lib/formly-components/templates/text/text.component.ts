@@ -1,4 +1,4 @@
-import { Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { merge, Observable, Subject } from 'rxjs';
@@ -14,14 +14,14 @@ import { blockPastSpecialCharracters, checkSpecialCharacters } from '../../../he
 
 export class TextComponent extends FieldType implements OnInit, OnDestroy {
 
-    public showError$: Observable<boolean>;
+    public showError$!: Observable<boolean>;
     public inputBlur$ = new Subject<void>();
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
     checkSpecialCharacters = checkSpecialCharacters;
     blockPastSpecialCharracters = blockPastSpecialCharracters;
 
-    defaultOptions = {
+    override defaultOptions = {
         validators: {
             validation: [Validators.maxLength(250)],
         },
@@ -34,6 +34,12 @@ export class TextComponent extends FieldType implements OnInit, OnDestroy {
     constructor(private cdr: ChangeDetectorRef) {
         super();
     }
+
+    
+    public get control() : FormControl {
+        return this.formControl as FormControl;
+    }
+    
 
     ngOnInit() {
         this.showError$ = merge(this.formControl.statusChanges, this.inputBlur$).pipe(

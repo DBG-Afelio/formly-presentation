@@ -8,8 +8,6 @@
 // export * from './lib/calendar/enums/index';
 // export * from './lib/calendar/resources-calendar/resources-calendar.component';
 export * from './lib/components/components.module';
-export * from './lib/components/daenae-dropdown/daenae-dropdown.component';
-export * from './lib/components/interfaces';
 export * from './lib/formly-components/formly-components.module';
 export * from './lib/formly-components/formly-modal/formly-modal-button.enum';
 export * from './lib/formly-components/formly-modal/formly-modal-config.interface';
@@ -18,9 +16,7 @@ export * from './lib/formly-components/formly-modal/formly-modal.component';
 export * from './lib/formly-components/interfaces';
 export * from './lib/formly-components/interfaces/form-generator-result.interface';
 export * from './lib/formly-components/templates';
-export * from './lib/formly-components/templates/button/button.component';
-export * from './lib/formly-components/templates/switch/switch.component';
-export * from './lib/formly-components/templates/toggle/toggle.component';
+
 export * from './lib/formly-components/validators';
 export * from './lib/formly-components/wrappers';
 export * from './lib/formly-components/wrappers/simple-field-wrapper/simple-field-wrapper.component';

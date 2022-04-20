@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isNil } from 'lodash';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, tap } from 'rxjs/operators';
 import { scrollToError } from '../../helpers/controls-errors.helper';
 import { checkIfPendingFormIsInvalid, markAllControlsAsTouched } from '../../helpers/formgroup.helper';
 import { FormlyModalButtonTypeEnum } from './formly-modal-button.enum';
@@ -16,13 +16,13 @@ import { FormlyModalSizeEnum } from './formly-modal-size.enum';
 export class FormlyModalComponent implements OnDestroy {
 
     public actionEmitter$ = new Subject<string>();
-    public buttonsEmitter$ = new Subject<string>();
+    public buttonsEmitter$ = new Subject<string | null>();
 
     public classes = 'col-10 col-md-6 col-lg-4';
-    public titleBadge$?: Observable<string>;
+    public titleBadge$?: Observable<string | null>;
 
     public navigationStack: (FormlyModalConfig)[] = [];
-    public currentNavigationData$ = new BehaviorSubject<FormlyModalConfig>(null);
+    public currentNavigationData$ = new BehaviorSubject<FormlyModalConfig | null>(null);
 
     constructor(
         public dialogRef: MatDialogRef<FormlyModalComponent>,
@@ -58,13 +58,15 @@ export class FormlyModalComponent implements OnDestroy {
 
     public submit() {
         const data = this.currentNavigationData$.getValue();
-        markAllControlsAsTouched(data.formConfig.formGroup);
-        if (data.formConfig.formGroup.valid) {
-            this.closeDialog(data.formConfig.model);
-        } else if (checkIfPendingFormIsInvalid(data.formConfig.formGroup)) {
-            scrollToError();
-        } else if (data.checkSubmittedPendingOrInvalidForm$ && data.formConfig.formGroup.status === 'PENDING') {
-            data.checkSubmittedPendingOrInvalidForm$.next();
+        if (data) {
+            markAllControlsAsTouched(data.formConfig.formGroup);
+            if (data.formConfig.formGroup.valid) {
+                this.closeDialog(data.formConfig.model);
+            } else if (checkIfPendingFormIsInvalid(data.formConfig.formGroup)) {
+                scrollToError();
+            } else if (data.checkSubmittedPendingOrInvalidForm$ && data.formConfig.formGroup.status === 'PENDING') {
+                data.checkSubmittedPendingOrInvalidForm$.next();
+            }
         }
     }
 
@@ -92,11 +94,11 @@ export class FormlyModalComponent implements OnDestroy {
                 this.cancel();
                 break;
             case FormlyModalButtonTypeEnum.CustomSubmit:
-                this.buttonsEmitter$.next(button.key);
+                this.buttonsEmitter$.next(button.key ?? null);
                 break;
             default:
                 const data = this.currentNavigationData$.getValue();
-                this.closeDialog(data.formConfig.model);
+                this.closeDialog(data?.formConfig.model);
                 break;
         }
     }

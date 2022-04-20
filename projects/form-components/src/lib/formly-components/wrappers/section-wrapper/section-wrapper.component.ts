@@ -10,9 +10,9 @@ import { FieldWrapper, FormlyFieldConfig } from '@ngx-formly/core';
 export class SectionWrapperComponent extends FieldWrapper {
 
     @ViewChild('fieldComponent', { read: ViewContainerRef })
-    fieldComponent: ViewContainerRef;
+    override fieldComponent!: ViewContainerRef;
 
-    defaultOptions: FormlyFieldConfig = {
+    override defaultOptions: FormlyFieldConfig = {
         templateOptions: {
             labelSection: '',
             label: '',

@@ -2,7 +2,7 @@
     <input
         class="textfield__field"
         type="text"
-        [formControl]="formControl"
+        [formControl]="control"
         [placeholder]="!formControl.disabled && to.placeholder ? (to.placeholder | translate) : '−'"
         [attr.maxLength]="to.maxLength ? to.maxLength : 250"
         [attr.minLength]="to.minLength ? to.minLength : null"

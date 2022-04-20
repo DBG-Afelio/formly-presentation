@@ -1,6 +1,6 @@
 import { AbstractControl } from '@angular/forms';
 
-export function getRegExStringFromValidationName(validationName: string): string {
+export function getRegExStringFromValidationName(validationName: 'name' | 'digitsOnly' | 'noSpaces'): string {
     const RegularExpression = {
         name: {
             CharAllowed: 'a-zA-Z\-\'À-ÿ '
@@ -25,7 +25,7 @@ export function isTechnicalKeys(event: KeyboardEvent) {
  * @param event A KeyboardEvent
  * @param validationName The name of the regex (getRegExStringFromValidationName)
  */
-export function checkSpecialCharacters(event: KeyboardEvent, validationName: string) {
+export function checkSpecialCharacters(event: KeyboardEvent, validationName: 'name' | 'digitsOnly' | 'noSpaces') {
     const regEx = getRegExStringFromValidationName(validationName);
     const inputChar = event.key;
     const patternTextAllowed = new RegExp(!regEx.startsWith('\\') ? `[${regEx}]` : regEx);
@@ -41,12 +41,12 @@ export function checkSpecialCharacters(event: KeyboardEvent, validationName: str
   * @param formControl The control how past the value
   * @param validationName The name of the regex (getRegExStringFromValidationName)
   */
-  export function blockPastSpecialCharracters(event: ClipboardEvent, formControl: AbstractControl, validationName: string) {
+  export function blockPastSpecialCharracters(event: ClipboardEvent, formControl: AbstractControl, validationName: 'name' | 'digitsOnly' | 'noSpaces') {
     if (!formControl) { return; }
     const regEx = getRegExStringFromValidationName(validationName);
     const patternTextAllowed = new RegExp(`^[${regEx}]*$`);
-    const pasteData = event.clipboardData.getData('text/plain');
-    if (!patternTextAllowed.test(pasteData)) {
+    const pasteData = event.clipboardData?.getData('text/plain');
+    if (pasteData && !patternTextAllowed.test(pasteData)) {
       const regExReplace = new RegExp(`[^${regEx}]`, 'g');
       const replaced = pasteData.replace(regExReplace, '');
       formControl.setValue(replaced);

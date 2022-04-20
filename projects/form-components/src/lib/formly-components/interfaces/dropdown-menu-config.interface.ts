@@ -1,4 +1,3 @@
-import { FormGeneratorResult } from '@fcsd-daenae/form-components';
 
 export enum ActionButtonTypeEnum {
     Submit = 'Submit',
@@ -11,7 +10,7 @@ export interface ActionButtonsInterface {
 }
 export interface FormlyDropdownMenuConfigInterface {
     toggleDropdownLabel: string;
-    form: FormGeneratorResult;
+    form: any;
     actionButtons: ActionButtonsInterface[];
     dropdownClasses?: string;
 }

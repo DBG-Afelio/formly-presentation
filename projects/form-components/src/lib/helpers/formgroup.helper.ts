@@ -22,7 +22,10 @@ export function markAllControlsAsTouched(form: AbstractControl, touched = true) 
     if ((form instanceof FormGroup || form instanceof FormArray) && form.controls && Object.keys(form.controls).length > 0) {
         for (const inner in form.controls) {
             if (Object.getOwnPropertyNames(inner)) {
-                markAllControlsAsTouched(form.get(inner), touched);
+                const control = form.get(inner);
+                if (control) {
+                    markAllControlsAsTouched(control, touched);
+                }
             }
         }
     }

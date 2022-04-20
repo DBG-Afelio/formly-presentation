@@ -14,44 +14,16 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { NgxMaskModule } from 'ngx-mask';
 import { directives } from '../directives/index';
 import { DaenaePipesModule } from '../pipes/daenae-pipes.module';
-import { FormlyDropdownComponent } from './formly-dropdown/formly-dropdown.component';
 import { FormlyModalComponent } from './formly-modal/formly-modal.component';
 import {
-    ButtonComponent,
-    ContextualMenuComponent,
-    DatepickerComponent,
-    EmailComponent,
-    MulticheckboxComponent,
-    MultiselectComponent,
-    NumberComponent,
-    PhoneComponent,
-    SelectComponent,
-    SwitchComponent,
     TextareaComponent,
-    TextComponent,
-    ToggleComponent
+    TextComponent
 } from './templates';
-import { ComponentComponent } from './templates/component/component.component';
-import { DatepickerSubComponent } from './templates/datepicker/component/datepicker-sub.component';
-import { HourInputComponent } from './templates/hour-input/hour-input.component';
-import { InamiInputComponent } from './templates/inami-input/inami-input.component';
-import { LinkComponent } from './templates/link/link.component';
-import { NameInputComponent } from './templates/name-input/name-input.component';
-import { NissInputComponent } from './templates/niss-input/niss-input.component';
-import { PercentageComponent } from './templates/percentage/percentage.component';
-import { PriceComponent } from './templates/price/price.component';
-import { RepeatFormlyGroupComponent } from './templates/repeat-formly-group/repeat-formly-group.component';
-import { SearchableSelectComponent } from './templates/searchable-select/searchable-select.component';
-import { SimpleCheckboxComponent } from './templates/simple-checkbox/simple-checkbox.component';
-import { TextInformationComponent } from './templates/text-information/text-information.component';
-import { TextNumberComponent } from './templates/text-number/text-number.component';
 import { FormlySwitchListValidatorRequired } from './validators/formly-switch-list.validator';
 import {
-    DivideSectionWrapperComponent, HelpPlanWrapperComponent, RowWrapperComponent, SectionWrapperComponent,
+    SectionWrapperComponent,
     SimpleFieldWrapperComponent
 } from './wrappers';
-import { ListWrapperComponent } from './wrappers/list-wrapper/list-wrapper.component';
-import { PopinWrapperComponent } from './wrappers/popin-wrapper/popin-wrapper.component';
 
 
 export function formlyValidationConfig(translate: TranslateService) {
@@ -168,7 +140,7 @@ export function formlyValidationConfig(translate: TranslateService) {
     };
 }
 
-let postPopulateFormeHookTimeout: NodeJS.Timeout | null = null;
+let postPopulateFormeHookTimeout: ReturnType<typeof setTimeout> | null = null;
 export function postPopulateFormeHook(field: FormlyFieldConfig) {
     if (
         field.parent &&
@@ -202,40 +174,9 @@ export const formPopulateHookExtension: FormlyExtension = {
     declarations: [
         SimpleFieldWrapperComponent,
         SectionWrapperComponent,
-        RepeatFormlyGroupComponent,
-        ListWrapperComponent,
-        ToggleComponent,
-        SelectComponent,
-        EmailComponent,
         TextComponent,
-        LinkComponent,
-        NameInputComponent,
-        SwitchComponent,
         TextareaComponent,
-        SimpleCheckboxComponent,
-        InamiInputComponent,
-        MulticheckboxComponent,
-        DatepickerComponent,
-        PhoneComponent,
-        DatepickerSubComponent,
-        NumberComponent,
-        PriceComponent,
-        TextInformationComponent,
-        ContextualMenuComponent,
-        ButtonComponent,
-        HourInputComponent,
-        ComponentComponent,
-        PopinWrapperComponent,
-        HelpPlanWrapperComponent,
-        PercentageComponent,
         FormlyModalComponent,
-        MultiselectComponent,
-        NissInputComponent,
-        SearchableSelectComponent,
-        DivideSectionWrapperComponent,
-        RowWrapperComponent,
-        TextNumberComponent,
-        FormlyDropdownComponent,
         ...directives
     ],
     imports: [
@@ -256,40 +197,11 @@ export const formPopulateHookExtension: FormlyExtension = {
             ],
             wrappers: [
                 { name: 'simple-field-wrapper', component: SimpleFieldWrapperComponent },
-                { name: 'section-wrapper', component: SectionWrapperComponent },
-                { name: 'list-wrapper', component: ListWrapperComponent },
-                { name: 'popin-wrapper', component: PopinWrapperComponent },
-                { name: 'help-plan-wrapper', component: HelpPlanWrapperComponent },
-                { name: 'divide-section-wrapper', component: DivideSectionWrapperComponent },
-                { name: 'row-wrapper', component: RowWrapperComponent }
+                { name: 'section-wrapper', component: SectionWrapperComponent }
             ],
             types: [
-                { name: 'toggle', component: ToggleComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'switch', component: SwitchComponent, wrappers: ['simple-field-wrapper']},
                 { name: 'textarea', component: TextareaComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'datepicker', component: DatepickerComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'email', component: EmailComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'phone', component: PhoneComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'simplecheckbox', component: SimpleCheckboxComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'multicheckbox', component: MulticheckboxComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'select', component: SelectComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'multiselect', component: MultiselectComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'searchable-select', component: SearchableSelectComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'integer', component: NumberComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'price', component: PriceComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'textinformation', component: TextInformationComponent, wrappers: ['simple-field-wrapper']},
                 { name: 'text', component: TextComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'inami', component: InamiInputComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'name-input', component: NameInputComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'contextual-menu', component: ContextualMenuComponent, wrappers: []},
-                { name: 'button', component: ButtonComponent, wrappers: []},
-                { name: 'hour-input', component: HourInputComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'repeat', component: RepeatFormlyGroupComponent, wrappers: [] },
-                { name: 'component', component: ComponentComponent, wrappers: [] },
-                { name: 'percent', component: PercentageComponent, wrappers: ['simple-field-wrapper'] },
-                { name: 'niss', component: NissInputComponent, wrappers: ['simple-field-wrapper'] },
-                { name: 'text-number', component: TextNumberComponent, wrappers: ['simple-field-wrapper']},
-                { name: 'link', component: LinkComponent, wrappers: ['simple-field-wrapper']}
             ]
         }),
         BsDatepickerModule.forRoot(),
@@ -303,30 +215,12 @@ export const formPopulateHookExtension: FormlyExtension = {
         { provide: FORMLY_CONFIG, multi: true, useFactory: formlyValidationConfig, deps: [TranslateService] }
     ],
     exports: [
-        ToggleComponent,
-        MulticheckboxComponent,
-        SelectComponent,
-        EmailComponent,
-        SwitchComponent,
-        PhoneComponent,
         TextareaComponent,
-        InamiInputComponent,
-        DatepickerComponent,
-        NumberComponent,
-        PriceComponent,
         SimpleFieldWrapperComponent,
         ReactiveFormsModule,
         FormlyModule,
-        ContextualMenuComponent,
-        ButtonComponent,
-        ComponentComponent,
         DaenaePipesModule,
-        FormlyModalComponent,
-        MultiselectComponent,
-        SearchableSelectComponent,
-        DivideSectionWrapperComponent,
-        TextNumberComponent,
-        FormlyDropdownComponent
+        FormlyModalComponent
     ]
 })
 export class FormlyComponentsModule {}
