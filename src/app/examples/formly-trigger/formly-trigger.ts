@@ -1,81 +1,38 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { Pizza, TestService, Topping } from '../../services/test.service.service';
 
 @Component({
-  selector: 'app-formly-simple',
-  templateUrl: './formly-expression-properties.html',
-  styleUrls: ['./formly-expression-properties.scss']
+  selector: 'app-formly-trigger',
+  templateUrl: './formly-trigger.html',
+  styleUrls: ['./formly-trigger.scss']
 })
-export class FormlyExpressionProperties {
+export class FormlyTrigger {
 
   form: FormGroup = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[] = [];
-
+  state: any = {
+    currentPizza: null
+  };
   /**
    *
    */
   constructor(private pizzaService: TestService) {
     this.fields = this.generateConfig();
-    
+
   }
 
   generateConfig(): FormlyFieldConfig[] {
     return [
       {
         wrappers: ['section-wrapper'],
+        key: 'example',
         templateOptions: {
           labelSection: 'Expression Properties',
-          cardTitle: 'Cacher un champ',
-
-        },
-        fieldGroup: [{
-          key: 'type',
-          type: 'searchable-select',
-          templateOptions: {
-            label: 'Commentaire',
-            maxLength: 2,
-            required: true,
-            options: [
-              { label: 'Un', value: 1 },
-              { label: 'Deux', value: 2 },
-              { label: 'Trois', value: 3 },
-              { label: 'Quatre', value: 4 },
-            ]
-          }
-        },
-        {
-          key: 'cached',
-          type: 'text',
-          templateOptions: {
-            label: 'champ caché',
-          },
-          hide: true
-        },
-        {
-          key: 'secret',
-          type: 'text',
-          templateOptions: {
-            label: 'champ secret',
-          },
-          hideExpression: (model: any, field: any) => {
-            return model.type !== 4
-          },
-          expressionProperties: {
-            'templateOptions.label': (model, state, field) => {
-              return (field?.parent?.fieldGroup?.[0].templateOptions?.options as any[])?.find((option: any) => option.value === +model.secret)?.label
-            }
-          }
-        }]
-      },
-      {
-        wrappers: ['section-wrapper'],
-        templateOptions: {
-          labelSection: 'Expression Properties',
-          cardTitle: 'Utiliser des Observables',
+          cardTitle: 'Déclencher depuis Formly',
 
         },
         fieldGroup: [
@@ -92,12 +49,34 @@ export class FormlyExpressionProperties {
                       label: pizza.name,
                       value: pizza
                     })),
-                    { label: 'Nouvelle', pizza: { id: '0', name: 'Nouvelle', toppings: [] } }
+                    { label: 'Nouvelle', pizza: { id: null, name: 'Nouvelle', toppings: [] } }
                   ]
                 })
               )
-            }
+            },
+            hooks: {
+              onInit: (field) => {
+                return field?.formControl?.valueChanges.pipe(
+                  tap(pizza => {
+                    if (field.options) {
+                      field.options.formState.currentPizza = pizza;
+                    }
+                  }));
+              }
+            } 
           },
+          {
+            key: 'name',
+            type: 'text',
+            templateOptions: {
+              placeholder: 'Entrez le nom de la nouvelle Pizza',
+              Label: 'Nom',
+              required: true
+            },
+            hideExpression: (model, state, field) => {  
+              return state?.currentPizza ? state?.currentPizza.id !== null : true;
+            }
+          },  
           {
             key: 'toppings',
             type: 'multicheckbox',
@@ -109,7 +88,7 @@ export class FormlyExpressionProperties {
                   return [
                     ...toppings.map(topping => ({
                       label: topping.name,
-                      key: '_'+topping.id
+                      key: '_' + topping.id
                     }))
                   ]
                 })
@@ -118,8 +97,7 @@ export class FormlyExpressionProperties {
             expressionProperties: {
               'model.toppings': (model, state, field) => {
                 // TODO: cocher les ingrédients de la pizza sélectionnée
-                console.log(model)
-                return model.pizzas?.toppings ? model.pizzas.toppings.reduce((acc: any,res: any) => {return {...acc, ['_'+res]: true}}, {}) : {};
+                return state.currentPizza?.toppings ? state.currentPizza.toppings.reduce((acc: any, res: any) => { return { ...acc, ['_' + res]: true } }, {}) : {};
               }
             }
           }
@@ -130,6 +108,10 @@ export class FormlyExpressionProperties {
 
   onSubmit(model: any) {
     console.log(model, this.form);
+  }
+
+  addHawai() {
+    this.state.currentPizza = { id: null, name: 'Hawaï', toppings: [1,4] }
   }
 
 }

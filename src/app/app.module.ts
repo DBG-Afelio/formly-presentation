@@ -10,6 +10,7 @@ import { DaenaePipesModule, FormlyComponentsModule } from '../../projects/form-c
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { formlyExamplesComponent } from './examples';
+import { TestService } from './services/test.service.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { formlyExamplesComponent } from './examples';
     DaenaePipesModule,
     BsDatepickerModule
   ],
-  providers: [],
+  providers: [TestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

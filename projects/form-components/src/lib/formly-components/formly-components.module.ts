@@ -16,8 +16,10 @@ import { directives } from '../directives/index';
 import { DaenaePipesModule } from '../pipes/daenae-pipes.module';
 import { FormlyModalComponent } from './formly-modal/formly-modal.component';
 import {
+    SearchableSelectComponent,
     TextareaComponent,
-    TextComponent
+    TextComponent,
+    MulticheckboxComponent
 } from './templates';
 import { FormlySwitchListValidatorRequired } from './validators/formly-switch-list.validator';
 import {
@@ -172,8 +174,10 @@ export const formPopulateHookExtension: FormlyExtension = {
 
 @NgModule({
     declarations: [
+        MulticheckboxComponent,
         SimpleFieldWrapperComponent,
         SectionWrapperComponent,
+        SearchableSelectComponent,
         TextComponent,
         TextareaComponent,
         FormlyModalComponent,
@@ -202,6 +206,8 @@ export const formPopulateHookExtension: FormlyExtension = {
             types: [
                 { name: 'textarea', component: TextareaComponent, wrappers: ['simple-field-wrapper']},
                 { name: 'text', component: TextComponent, wrappers: ['simple-field-wrapper']},
+                { name: 'searchable-select', component: SearchableSelectComponent, wrappers: ['simple-field-wrapper']},
+                { name: 'multicheckbox', component: MulticheckboxComponent, wrappers: ['simple-field-wrapper']}
             ]
         }),
         BsDatepickerModule.forRoot(),
@@ -220,7 +226,9 @@ export const formPopulateHookExtension: FormlyExtension = {
         ReactiveFormsModule,
         FormlyModule,
         DaenaePipesModule,
-        FormlyModalComponent
+        FormlyModalComponent,
+        MulticheckboxComponent,
+        SearchableSelectComponent
     ]
 })
 export class FormlyComponentsModule {}

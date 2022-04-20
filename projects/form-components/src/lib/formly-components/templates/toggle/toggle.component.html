@@ -1,0 +1,74 @@
+
+<div *ngIf="to.options"
+    [ngClass]="{
+        'choices': !to['isSpaced'] && !!to['shouldHaveToggleAppearence'],
+        'choices-card mb-m': to['isSpaced'] && !!to['shouldHaveToggleAppearence'],
+        'vertical': to['isVertical'],
+        'scrollable-error': showError$ | async,
+        '-error': showError$ | async,
+        'row': to['cards']
+    }">
+
+
+    <ng-container *ngIf="!!to['shouldHaveToggleAppearence']; else radioButtons">
+        <div class="choice"
+            [ngClass]="{'-disabled': option.disabled || to.disabled, 'col-6 col-lg-3 pr-none': to['cards']}"
+            *ngFor="let option of (to.options | asObservable | async)"
+            [matTooltip]="option.tooltip | translate"
+            matTooltipClass="tooltip__infos">
+            <input class="choice__input"
+                type="radio"
+                [disabled]="option.disabled || to.disabled ? 'disabled' : false"
+                [id]="getId(option)"
+                [value]="option.value"
+                [name]="id"
+                [(ngModel)]="value"
+                (ngModelChange)="setValue($event)"
+                [placeholder]="option.placeholder" />
+            <label [for]="getId(option)">
+                <!-- Case with no cards -->
+                <div class="choice__text" *ngIf="!to['cards']"> {{ option.label | translate }}</div>
+                <!-- Case with cards on add request screen -->
+                <div class="card -admin" *ngIf="to['cards']">
+                    <div class="card__content">
+                        <div class="card__icon">
+                            <span class="icon" [ngClass]="option.iconClass"></span>
+                        </div>
+                        <div class="card__content-item">
+                            <span class="card__content-item__text f-s">
+                                {{ option.label | translate}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </ng-container>
+
+    <ng-template #radioButtons>
+        <div class="mt-xxs">
+            <div class="mb-xs" *ngFor="let option of (to.options | asObservable | async)">
+                <div class="radio"
+                    [matTooltip]="option.tooltip | translate"
+                    matTooltipClass="tooltip__infos" >
+                    <label class="radio__label" [for]="getId(option)">
+                        <input class="radio__input"
+                            type="radio"
+                            [disabled]="option.disabled || to.disabled ? 'disabled' : false"
+                            [id]="getId(option)"
+                            [value]="option.value"
+                            [name]="id"
+                            [(ngModel)]="value"
+                            (ngModelChange)="setValue($event)"
+                            [placeholder]="option.placeholder" >
+                        <div class="radio__box"></div>
+                        <div class="radio__text">
+                            <span class="radio__text-label">{{ option.label | translate }}</span>
+                        </div>
+                    </label>
+                </div>
+                <span class="ml-l f-xs c-grey04" *ngIf="option.info">{{ option.info | translate }}</span>
+            </div>
+        </div>
+    </ng-template>
+</div>
