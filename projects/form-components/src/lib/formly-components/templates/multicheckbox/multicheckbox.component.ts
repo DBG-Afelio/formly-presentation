@@ -1,5 +1,5 @@
 import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { FieldType, FormlyFieldConfig } from '@ngx-formly/core';
 import { Observable, of, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class MulticheckboxComponent extends FieldType implements OnInit, OnDestr
 
     private destroy$: Subject<boolean> = new Subject<boolean>();
     public checkboxes$!: Observable<any>;
-    public formCheckbox: FormGroup;
+    public formCheckbox: UntypedFormGroup;
     // public checkboxes: { [key: string]: FormControl };
 
     public numberOfSelected!: number;
@@ -31,7 +31,7 @@ export class MulticheckboxComponent extends FieldType implements OnInit, OnDestr
 
     constructor() {
         super();
-        this.formCheckbox = new FormGroup({});
+        this.formCheckbox = new UntypedFormGroup({});
         this.checkboxLength = 0;
     }
 
@@ -96,15 +96,15 @@ export class MulticheckboxComponent extends FieldType implements OnInit, OnDestr
             .filter((control) => !!this.formCheckbox.controls[control].value).length;
     }
 
-    public  getControl(key: string) : FormControl {
-        return this.formCheckbox.get(key) as FormControl
+    public  getControl(key: string) : UntypedFormControl {
+        return this.formCheckbox.get(key) as UntypedFormControl
     }
 
     private updateForm(options: any) {
         const oldValues = { ... this.formCheckbox.value };
         this.removeAllOptions();
         options.map((option: any) => {
-            const control: FormControl = new FormControl(option.key in oldValues ? oldValues[option.key] : option.value);
+            const control: UntypedFormControl = new UntypedFormControl(option.key in oldValues ? oldValues[option.key] : option.value);
             this.formCheckbox.addControl(
                 option.key,
                 control

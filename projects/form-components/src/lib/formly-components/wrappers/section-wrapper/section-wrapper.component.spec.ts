@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { SmartTranslatePipe } from '../../../pipes/smart-translate.pipe';
 import { SectionWrapperComponent } from './section-wrapper.component';
@@ -27,7 +27,7 @@ describe('SectionWrapperComponent', () => {
         component = fixture.componentInstance;
         component.field = {
             templateOptions: {},
-            form: new FormGroup({}),
+            form: new UntypedFormGroup({}),
             options: { showError: () => false }
         };
         fixture.detectChanges();

@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { FormlyModule } from '@ngx-formly/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,8 +9,8 @@ import { delay } from 'rxjs/operators';
 import { MulticheckboxComponent } from './multicheckbox.component';
 
 const mockFormcontrol = {
-    'm': new FormControl(false),
-    'f': new FormControl(true)
+    'm': new UntypedFormControl(false),
+    'f': new UntypedFormControl(true)
 };
 
 describe('MulticheckboxComponent', () => {
@@ -35,7 +35,7 @@ describe('MulticheckboxComponent', () => {
             fixture = TestBed.createComponent(MulticheckboxComponent);
             component = fixture.componentInstance;
             const controlKey = 'test';
-            const form = new FormGroup({ [controlKey]: new FormControl() });
+            const form = new UntypedFormGroup({ [controlKey]: new UntypedFormControl() });
             component.field = {
                 key: controlKey,
                 templateOptions: {
@@ -96,7 +96,7 @@ describe('MulticheckboxComponent', () => {
             fixture = TestBed.createComponent(MulticheckboxComponent);
             component = fixture.componentInstance;
             const controlKey = 'test';
-            const form = new FormGroup({ [controlKey]: new FormControl() });
+            const form = new UntypedFormGroup({ [controlKey]: new UntypedFormControl() });
             component.field = {
                 key: controlKey,
                 templateOptions: {
@@ -121,12 +121,12 @@ describe('MulticheckboxComponent', () => {
             fixture.detectChanges();
             expect((checkboxDiv.nativeElement as HTMLElement).classList.contains('-partial')).toBeFalsy();
             expect((checkboxDiv.nativeElement as HTMLElement).classList.contains('checked')).toBeFalsy();
-            (component.formCheckbox as FormGroup).get('one').setValue(true);
+            (component.formCheckbox as UntypedFormGroup).get('one').setValue(true);
             fixture.detectChanges();
             expect((checkboxDiv.nativeElement as HTMLElement).classList.contains('-partial')).toBeTruthy();
             expect((checkboxDiv.nativeElement as HTMLElement).classList.contains('checked')).toBeFalsy();
-            (component.formCheckbox as FormGroup).get('two').setValue(true);
-            (component.formCheckbox as FormGroup).get('three').setValue(true);
+            (component.formCheckbox as UntypedFormGroup).get('two').setValue(true);
+            (component.formCheckbox as UntypedFormGroup).get('three').setValue(true);
             fixture.detectChanges();
             expect((checkboxDiv.nativeElement as HTMLElement).classList.contains('-partial')).toBeFalsy();
             expect((checkboxDiv.nativeElement as HTMLElement).classList.contains('checked')).toBeTruthy();
@@ -136,7 +136,7 @@ describe('MulticheckboxComponent', () => {
             fixture.detectChanges();
             const checkboxDiv = fixture.debugElement.query(By.css('[data-test="allTogglableCheckbox"]>div'));
             const checkboxLabel = fixture.debugElement.query(By.css('[data-test="allTogglableCheckbox"] button'));
-            (component.formCheckbox as FormGroup).get('two').setValue(true);
+            (component.formCheckbox as UntypedFormGroup).get('two').setValue(true);
 
             fixture.detectChanges();
             expect((checkboxDiv.nativeElement as HTMLElement).classList.contains('-partial')).toBeTruthy();
@@ -165,7 +165,7 @@ describe('MulticheckboxComponent', () => {
             fixture = TestBed.createComponent(MulticheckboxComponent);
             component = fixture.componentInstance;
             const controlKey = 'test';
-            const form = new FormGroup({ [controlKey]: new FormControl() });
+            const form = new UntypedFormGroup({ [controlKey]: new UntypedFormControl() });
             component.field = {
                 key: controlKey,
                 templateOptions: {

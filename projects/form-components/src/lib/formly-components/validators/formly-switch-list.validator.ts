@@ -1,5 +1,5 @@
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { some } from 'lodash';
-import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
 
     export function FormlySwitchListValidatorRequired(control: AbstractControl): ValidationErrors | null {
         if (!control.value) {

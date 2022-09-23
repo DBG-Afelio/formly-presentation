@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import moment from 'moment-es6';
 
 export function stringToMoment(dateValue: string) {
@@ -55,8 +55,8 @@ export function dateRangeValidator(
     endDateControl: string = 'endDate',
     canBeSameDay = false): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-        const startControl = control.get(startDateControl) as FormControl;
-        const endControl = control.get(endDateControl) as FormControl;
+        const startControl = control.get(startDateControl) as UntypedFormControl;
+        const endControl = control.get(endDateControl) as UntypedFormControl;
         if (startControl && endControl) {
             if (startControl?.hasError('dateRangeError') && startControl.errors) {
                 delete startControl.errors['dateRangeError'];
@@ -75,9 +75,9 @@ export function dateRangeValidator(
                 const end = moment(endControl.value, 'DD/MM/YYYY');
 
                 if (!canBeSameDay && start.isSameOrAfter(end, 'days')) {
-                    setErrorsAndMarkAsTouched(startControl, endControl, control as FormControl);
+                    setErrorsAndMarkAsTouched(startControl, endControl, control as UntypedFormControl);
                 } else if (canBeSameDay && start.isAfter(end, 'days')) {
-                    setErrorsAndMarkAsTouched(startControl, endControl, control as FormControl);
+                    setErrorsAndMarkAsTouched(startControl, endControl, control as UntypedFormControl);
                 } else {
                     control.markAsUntouched();
                 }
@@ -87,7 +87,7 @@ export function dateRangeValidator(
     };
 }
 
-function setErrorsAndMarkAsTouched(startControl: FormControl, endControl: FormControl, control: FormControl) {
+function setErrorsAndMarkAsTouched(startControl: UntypedFormControl, endControl: UntypedFormControl, control: UntypedFormControl) {
     startControl.setErrors({ dateRangeError: true });
     endControl.setErrors({ dateRangeError: true });
     control.markAllAsTouched();

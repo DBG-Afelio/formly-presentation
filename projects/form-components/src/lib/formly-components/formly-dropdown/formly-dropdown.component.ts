@@ -9,7 +9,7 @@ import { ActionButtonTypeEnum, FormlyDropdownMenuConfigInterface } from '../inte
 })
 export class FormlyDropdownComponent {
 
-    @Input() config: FormlyDropdownMenuConfigInterface;
+    @Input() config!: FormlyDropdownMenuConfigInterface;
 
     @Output() emitAction = new EventEmitter<ActionButtonTypeEnum>();
 

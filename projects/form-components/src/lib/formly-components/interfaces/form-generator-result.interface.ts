@@ -1,8 +1,8 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { FormGroup, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl } from '@angular/forms';
 
 export interface FormGeneratorResult<ModelType = any> {
-    formGroup: FormGroup;
+    formGroup: UntypedFormGroup;
     formlyConfig: FormlyFieldConfig[];
     model: ModelType;
     formState?: any;

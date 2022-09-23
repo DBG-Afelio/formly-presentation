@@ -5,7 +5,7 @@
             <button class="button" [ngClass]="{
                     '-selected': selectedIndex === i,
                     '-error': (selectedIndex !== i && step.stepControl && step.stepControl.invalid && step.stepControl.touched),
-                    '-disabled': stepState[i]?.disabled
+                    '-disabled': !!stepState[i].disabled
                 }" (click)="selectStepByIndex(i)">
             {{ step.label }}
             {{ (selectedIndex !== i && step.stepControl && step.stepControl.invalid && step.stepControl.touched)

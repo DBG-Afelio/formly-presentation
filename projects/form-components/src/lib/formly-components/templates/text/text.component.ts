@@ -1,4 +1,4 @@
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { merge, Observable, Subject } from 'rxjs';
@@ -36,8 +36,8 @@ export class TextComponent extends FieldType implements OnInit, OnDestroy {
     }
 
     
-    public get control() : FormControl {
-        return this.formControl as FormControl;
+    public get control() : UntypedFormControl {
+        return this.formControl as UntypedFormControl;
     }
     
 

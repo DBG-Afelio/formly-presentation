@@ -1,6 +1,6 @@
 import { FormlyModule } from '@ngx-formly/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormlyModalConfig } from './formly-modal-config.interface';
@@ -24,7 +24,7 @@ describe('FormlyModalComponent', () => {
                 { provide: MatDialogRef, useValue: {} },
                 { provide: MAT_DIALOG_DATA, useValue: {
                     formConfig: {
-                        formGroup: new FormGroup({}),
+                        formGroup: new UntypedFormGroup({}),
                         formlyConfig: [],
                         model: {}
                     },

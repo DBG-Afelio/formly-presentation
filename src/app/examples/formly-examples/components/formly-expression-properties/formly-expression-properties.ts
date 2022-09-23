@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { map } from 'rxjs';
 import { Pizza, TestService, Topping } from '../../services/test.service.service';
@@ -11,7 +11,7 @@ import { Pizza, TestService, Topping } from '../../services/test.service.service
 })
 export class FormlyExpressionProperties {
 
-  form: FormGroup = new FormGroup({});
+  form: UntypedFormGroup = new UntypedFormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[] = [];
 

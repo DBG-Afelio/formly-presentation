@@ -1,8 +1,8 @@
 import { AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { FieldType } from '@ngx-formly/core';
 import { merge, Observable, Subject } from 'rxjs';
-import { map, take, takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 
 // Based on https://github.com/ngx-formly/ngx-formly/blob/main/src/ui/bootstrap/textarea/src/textarea.type.ts
 
@@ -52,8 +52,8 @@ export class TextareaComponent extends FieldType implements OnInit, AfterContent
     }
 
     
-    public get control() : FormControl {
-        return this.formControl as FormControl
+    public get control() : UntypedFormControl {
+        return this.formControl as UntypedFormControl
     }
     
 

@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isNil } from 'lodash';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { scrollToError } from '../../helpers/controls-errors.helper';
 import { checkIfPendingFormIsInvalid, markAllControlsAsTouched } from '../../helpers/formgroup.helper';
 import { FormlyModalButtonTypeEnum } from './formly-modal-button.enum';

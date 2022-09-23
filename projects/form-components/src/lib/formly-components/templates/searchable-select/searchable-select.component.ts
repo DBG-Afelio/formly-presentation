@@ -1,5 +1,5 @@
 import { Component, DoCheck } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { FieldType, FormlyFieldConfig } from '@ngx-formly/core';
 import { isEqual, isNil } from 'lodash';
 import { Observable, of } from 'rxjs';
@@ -33,8 +33,8 @@ export class SearchableSelectComponent extends FieldType implements DoCheck {
     }
 
     
-    public get control() : FormControl {
-        return this.formControl as FormControl;
+    public get control() : UntypedFormControl {
+        return this.formControl as UntypedFormControl;
     }
     
 

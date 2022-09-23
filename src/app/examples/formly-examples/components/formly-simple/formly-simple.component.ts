@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
@@ -9,7 +9,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 })
 export class FormlySimpleComponent {
 
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model = { email: 'email@gmail.com' };
   fields: FormlyFieldConfig[] = [
     {

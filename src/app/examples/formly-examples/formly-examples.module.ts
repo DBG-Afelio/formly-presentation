@@ -9,6 +9,7 @@ import { FormlyExamplesComponent } from './formly-examples.component';
 import { FormlyExamplesRoutingModule } from "./formly-examples-routing.module";
 import { TestService } from './services/test.service.service';
 import { formlyExamplesComponent } from './components';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -18,13 +19,13 @@ import { formlyExamplesComponent } from './components';
   imports: [
     FormlyExamplesRoutingModule,
     CommonModule,
-    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     FormlyModule.forRoot({extras: { lazyRender: true }, types: []}),
     FormlyComponentsModule,
     DaenaePipesModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    TranslateModule.forChild()
   ],
   providers: [TestService]
 })

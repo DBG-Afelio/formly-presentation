@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { TextareaComponent } from './textarea.component';
@@ -23,7 +23,7 @@ describe('TextareaComponent', () => {
     fixture = TestBed.createComponent(TextareaComponent);
     component = fixture.componentInstance;
     const controlKey = 'test';
-    const form = new FormGroup({ [controlKey]: new FormControl() });
+    const form = new UntypedFormGroup({ [controlKey]: new UntypedFormControl() });
     component.field = {
         key: controlKey,
         templateOptions: {},

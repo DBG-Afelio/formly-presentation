@@ -1,5 +1,5 @@
 import { FormlyModule } from '@ngx-formly/core';
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TextComponent } from './text.component';
@@ -24,7 +24,7 @@ describe('TextComponent', () => {
         fixture = TestBed.createComponent(TextComponent);
         component = fixture.componentInstance;
         const controlKey = 'test';
-        const form = new FormGroup({ [controlKey]: new FormControl() });
+        const form = new UntypedFormGroup({ [controlKey]: new UntypedFormControl() });
         component.field = {
             key: controlKey,
             type: 'contextual-menu',

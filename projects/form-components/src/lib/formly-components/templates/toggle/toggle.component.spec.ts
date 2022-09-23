@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 /* tslint:disable:no-unused-variable */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsObservablePipe } from './../../../pipes/as-observable.pipe';
@@ -30,7 +30,7 @@ describe('ToggleComponent', () => {
         fixture = TestBed.createComponent(ToggleComponent);
         component = fixture.componentInstance;
         const controlKey = 'test';
-        const form = new FormGroup({ [controlKey]: new FormControl() });
+        const form = new UntypedFormGroup({ [controlKey]: new UntypedFormControl() });
         component.field = {
             key: controlKey,
             templateOptions: {
